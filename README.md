@@ -76,3 +76,5 @@ src/main/java/org/example/
 ```
 
 Используемые API: `Pattern`, `Matcher`, `matches()`, `replaceAll()`, `toLowerCase()`
+
+---
