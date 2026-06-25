@@ -1,4 +1,8 @@
-# Practice 03 — Java Basic Concepts: Regular Expressions
+# Java Basic Concepts — Practice 03
+
+![Java](https://img.shields.io/badge/Java-17-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white)
+![Maven](https://img.shields.io/badge/Maven-3.6+-C71A36?style=for-the-badge&logo=apachemaven&logoColor=white)
+![JUnit](https://img.shields.io/badge/JUnit-5-25A162?style=for-the-badge&logo=junit5&logoColor=white)
 
 Учебный проект на Java, демонстрирующий работу с регулярными выражениями (`java.util.regex`).  
 Три задачи объединены в консольное меню с централизованной обработкой ввода.
@@ -74,30 +78,3 @@ src/main/java/org/example/
 Используемые API: `Pattern`, `Matcher`, `matches()`, `replaceAll()`, `toLowerCase()`
 
 ---
-
-## Архитектура
-
-```
-Main
- └─ InputHelper          ← единое место валидации ввода
-     ├─ readLine()       ← бросает IllegalArgumentException если строка пустая
-     └─ readMenuChoice() ← проверяет диапазон, отклоняет нечисловой ввод
-
-Main.runSafely(Runnable) ← перехватывает ошибки задач, не ломая цикл меню
-```
-
-Каждый класс-задача можно запустить и **отдельно** (у каждого есть собственный `main()`).
-
-## Требования
-
-- Java 17+
-- Maven 3.8+
-
-## Запуск
-
-```bash
-mvn compile
-mvn exec:java -Dexec.mainClass="org.example.Main"
-```
-
-Или открыть в IntelliJ IDEA и запустить `Main.java`.
