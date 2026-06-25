@@ -1,7 +1,6 @@
 package org.example;
 
 import java.util.Scanner;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class UsernameFormatter {
@@ -10,29 +9,28 @@ public class UsernameFormatter {
     private static final Pattern VALID_LENGTH       = Pattern.compile(".{3,20}");
     private static final Pattern VALID_CHARS        = Pattern.compile("[a-zA-Z0-9_]+");
 
+    // Validates and formats username. Throws IllegalArgumentException with a
+    // human-readable message on the first violated rule.
+    static String process(String username) {
+        if (!STARTS_WITH_LETTER.matcher(username).matches()) {
+            throw new IllegalArgumentException("имя пользователя должно начинаться с буквы");
+        }
+        if (!VALID_LENGTH.matcher(username).matches()) {
+            throw new IllegalArgumentException("имя пользователя должно содержать от 3 до 20 символов");
+        }
+        if (!VALID_CHARS.matcher(username).matches()) {
+            throw new IllegalArgumentException("имя пользователя может содержать только буквы, цифры и '_'");
+        }
+        return username.toLowerCase().replaceAll("_+", "_");
+    }
+
     static void run(Scanner scanner) {
         String username = InputHelper.readLine(scanner, "Введите имя пользователя: ");
-
-        Matcher startMatcher = STARTS_WITH_LETTER.matcher(username);
-        if (!startMatcher.matches()) {
-            System.out.println("Ошибка: имя пользователя должно начинаться с буквы");
-            return;
+        try {
+            System.out.println("Отформатированное имя: " + process(username));
+        } catch (IllegalArgumentException e) {
+            System.out.println("Ошибка: " + e.getMessage());
         }
-
-        Matcher lengthMatcher = VALID_LENGTH.matcher(username);
-        if (!lengthMatcher.matches()) {
-            System.out.println("Ошибка: имя пользователя должно содержать от 3 до 20 символов");
-            return;
-        }
-
-        Matcher charMatcher = VALID_CHARS.matcher(username);
-        if (!charMatcher.matches()) {
-            System.out.println("Ошибка: имя пользователя может содержать только буквы, цифры и '_'");
-            return;
-        }
-
-        String formatted = username.toLowerCase().replaceAll("_+", "_");
-        System.out.println("Отформатированное имя: " + formatted);
     }
 
     public static void main(String[] args) {

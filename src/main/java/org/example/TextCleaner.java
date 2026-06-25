@@ -4,10 +4,13 @@ import java.util.Scanner;
 
 public class TextCleaner {
 
+    static String clean(String text) {
+        return text.replaceAll("[\\p{L}\\s]", "");
+    }
+
     static void run(Scanner scanner) {
         String input = InputHelper.readLine(scanner, "Введите текст: ");
-        String result = input.replaceAll("[\\p{L}\\s]", "");
-        System.out.println("Результат: " + result);
+        System.out.println("Результат: " + clean(input));
     }
 
     public static void main(String[] args) {
