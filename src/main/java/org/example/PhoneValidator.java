@@ -5,8 +5,12 @@ import java.util.regex.Pattern;
 
 public class PhoneValidator {
 
+    // Two modes:
+    // 1. No separators: + followed by 7-14 digits total
+    // 2. With separators: country(1-3d) MANDATORY_SEP area(1-3d) MANDATORY_SEP main(5-8d, inner seps optional)
+    // Mandatory separators between groups prevent backtracking from redistributing digits across boundaries.
     private static final String PHONE_PATTERN =
-            "\\+\\d{1,3}[ -]?\\d{1,3}[ -]?(\\d[ -]?){4,7}\\d";
+            "\\+(?:\\d{7,14}|\\d{1,3}[ -]\\d{1,3}[ -](?:\\d[ -]?){4,7}\\d)";
 
     static boolean validate(String phone) {
         return Pattern.matches(PHONE_PATTERN, phone);
